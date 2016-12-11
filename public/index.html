@@ -4,15 +4,20 @@
 <head>
     <title>Socket.IO chat</title>
     <link href='css/style.css' type="text/css" rel="stylesheet"></link>
+    <link rel="stylesheet" type="text/css" href="lib/sweetalert/dist/sweetalert.css">
 </head>
 
 <body>
     <ul id="messages"></ul>
-    <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div class="actions">
+        <button class="btn-changeusername" type="button">Change<br /> Username</button>
+        <span class="span-username">User</span>
+        <input class="input-message" autocomplete="off" />
+        <button class="btn-sendmessage">Send</button>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="lib/sweetalert/dist/sweetalert.min.js"></script>
     <script src="js/chat.js"></script>
 </body>
 

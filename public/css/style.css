@@ -8,26 +8,43 @@ body {
     font: 13px Helvetica, Arial;
 }
 
-form {
-    background: #000;
+.actions {
+    background: #777777;
     padding: 3px;
     position: fixed;
     bottom: 0;
     width: 100%;
+    display: flex;
 }
 
-form input {
-    border: 0;
-    padding: 10px;
-    width: 90%;
-    margin-right: .5%;
+.span-username {
+    width: 10%;
+    display:flex; 
+    align-items: center;
+    justify-content: center;
 }
 
-form button {
-    width: 9%;
-    background: rgb(130, 224, 255);
+.btn-changeusername {
+    width: 10%;
+    height: 40px;
+}
+
+.input-message {
+    width: 70%;
     border: none;
-    padding: 10px;
+}
+
+.btn-sendmessage {
+    width: 10%;
+}
+
+button {
+    border: 2px solid rgb(100, 200, 235);
+    background: rgb(130, 224, 255);
+}
+
+button:hover{
+    background: rgb(150, 244, 255);
 }
 
 #messages {
