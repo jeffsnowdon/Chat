@@ -5,7 +5,7 @@ var socket = io();
 var prevMsgVal = "";
 var isTypingUsernames = [];
 
-$('.input-message').on('keyup', function () {
+function updateStatusTyping() {
     let msg = $('.input-message').val();
     if (msg && msg.length > 0 && !prevMsgVal) {
         socket.emit('status-typing', true);
@@ -14,12 +14,14 @@ $('.input-message').on('keyup', function () {
         socket.emit('status-typing', false);
     }
     prevMsgVal = msg;
-});
+}
+$('.input-message').on('keyup', updateStatusTyping);
 
 $('.btn-sendmessage').on('click', function () {
     let msg = $('.input-message').val();
     socket.emit('message', msg);
     $('.input-message').val('');
+    updateStatusTyping();
 
     showMessage(produceMessage(username, msg));
     return false;
