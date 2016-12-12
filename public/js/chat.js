@@ -4,7 +4,7 @@ var username = DEFAULT_USER_NAME;
 
 
 $('.btn-sendmessage').on('click', function () {
-    socket.emit('chat message', $('.input-message').val());
+    socket.emit('message', $('.input-message').val());
     $('.input-message').val('');
     return false;
 });
@@ -25,20 +25,20 @@ $('.btn-changeusername').on('click', function () {
             }
 
             username = inputValue;
-            socket.emit('setName', username);
+            socket.emit('set-userName', username);
             $('.span-username').text(username);
             swal.close();
         });
 });
 
-socket.on('chat message', function (msg) {
+socket.on('message', function (msg) {
     $('#messages').append($('<li>').text(msg));
 });
-socket.on('user connected', function (msg) {
+socket.on('userConnected', function (msg) {
     $('#messages').append($('<li>').text(msg));
 });
-socket.on('user disconnected', function (msg) {
+socket.on('userDisconnected', function (msg) {
     $('#messages').append($('<li>').text(msg));
 });
 
-socket.emit('setName', username);
+socket.emit('set-userName', username);

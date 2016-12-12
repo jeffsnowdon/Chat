@@ -15,15 +15,15 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-  io.emit('user connected', 'a user connected');
+  io.emit('userConnected', 'New user connected.');
   socket.on('disconnect', function () {
-    io.emit('user disconnected', 'a user disconnected');
+    io.emit('userDisconnected', socket.name + ' disconnected.');
   });
-  socket.on('setName', function (name) {
+  socket.on('set-userName', function (name) {
     socket.name = name;
   });
-  socket.on('chat message', function (msg) {
-    io.emit('chat message', socket.name + ': ' + msg);
+  socket.on('message', function (msg) {
+    io.emit('message', socket.name + ': ' + msg);
   });
 });
 
