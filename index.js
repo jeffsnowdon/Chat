@@ -26,7 +26,7 @@ io.on('connection', function (socket) {
       socket.name = name;
     });
     socket.on('message', function (msg) {
-      io.emit('message', socket.name + ': ' + msg);
+      socket.broadcast.emit('message', produceMessage(socket.name, msg));
     });
   })
 
@@ -39,3 +39,7 @@ io.on('connection', function (socket) {
 http.listen(3000, function () {
   console.log('listening on *:3000');
 });
+
+function produceMessage(username, msg) {
+  return username + ': ' + msg;
+}

@@ -4,8 +4,11 @@ var username = DEFAULT_USER_NAME;
 var socket = io();
 
 $('.btn-sendmessage').on('click', function () {
-    socket.emit('message', $('.input-message').val());
+    let msg = $('.input-message').val();
+    socket.emit('message', msg);
     $('.input-message').val('');
+    
+    showMessage(produceMessage(username, msg));
     return false;
 });
 $('.btn-changeusername').on('click', function () {
@@ -35,13 +38,21 @@ socket.on('handshake-username', function(msg){
 })
 
 socket.on('message', function (msg) {
-    $('#messages').append($('<li>').text(msg));
+    showMessage(msg);
 });
 socket.on('userConnected', function (msg) {
-    $('#messages').append($('<li>').text(msg));
+    showMessage(msg);
 });
 socket.on('userDisconnected', function (msg) {
-    $('#messages').append($('<li>').text(msg));
+    showMessage(msg);
 });
 
 socket.emit('set-username', username);
+
+function produceMessage(username, msg) {
+  return username + ': ' + msg;
+}
+
+function showMessage(msg){
+    $('#messages').append($('<li>').text(msg));
+}
