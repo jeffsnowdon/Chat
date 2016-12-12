@@ -1,7 +1,7 @@
-var socket = io();
 const DEFAULT_USER_NAME = "User";
-var username = DEFAULT_USER_NAME;
 
+var username = DEFAULT_USER_NAME;
+var socket = io();
 
 $('.btn-sendmessage').on('click', function () {
     socket.emit('message', $('.input-message').val());
@@ -25,11 +25,14 @@ $('.btn-changeusername').on('click', function () {
             }
 
             username = inputValue;
-            socket.emit('set-userName', username);
+            socket.emit('set-username', username);
             $('.span-username').text(username);
             swal.close();
         });
 });
+socket.on('handshake-username', function(msg){
+    socket.emit('handshake-username', username);
+})
 
 socket.on('message', function (msg) {
     $('#messages').append($('<li>').text(msg));
@@ -41,4 +44,4 @@ socket.on('userDisconnected', function (msg) {
     $('#messages').append($('<li>').text(msg));
 });
 
-socket.emit('set-userName', username);
+socket.emit('set-username', username);

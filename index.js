@@ -15,17 +15,26 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-  io.emit('userConnected', 'New user connected.');
-  socket.on('disconnect', function () {
-    io.emit('userDisconnected', socket.name + ' disconnected.');
-  });
-  socket.on('set-userName', function (name) {
-    socket.name = name;
-  });
-  socket.on('message', function (msg) {
-    io.emit('message', socket.name + ': ' + msg);
-  });
+
+  socket.on('handshake-username', function (username) {
+    socket.name = username;
+    io.emit('userConnected', socket.name + ' connected.');
+    socket.on('disconnect', function () {
+      io.emit('userDisconnected', socket.name + ' disconnected.');
+    });
+    socket.on('set-username', function (name) {
+      socket.name = name;
+    });
+    socket.on('message', function (msg) {
+      io.emit('message', socket.name + ': ' + msg);
+    });
+  })
+
+  socket.emit('handshake-username');
+
 });
+
+
 
 http.listen(3000, function () {
   console.log('listening on *:3000');
