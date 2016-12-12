@@ -28,6 +28,9 @@ io.on('connection', function (socket) {
     socket.on('message', function (msg) {
       socket.broadcast.emit('message', produceMessage(socket.name, msg));
     });
+    socket.on('status-typing', function (isTyping) {
+      socket.broadcast.emit('status-typing', socket.name, isTyping);
+    })
   })
 
   socket.emit('handshake-username');
